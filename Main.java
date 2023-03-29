@@ -3,45 +3,54 @@ import java.lang.String;
 import java.util.Scanner;
 
 public class Main {
-
+    static final String PATH = "/Users/mac/IdeaProjects/OPD2/src/FileResult";
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         Scanner scanner = new Scanner(System.in);
 
-        final int counter = 1; // Кол-во клиентов
-        int buttonMenu;  // Переменная для работы с программой
-        Client[] cl = new Client[counter];
-        Device[] dev = new Device[counter];
-        Delivery[] deliv = new Delivery[counter];
-        Price[] cost = new Price[counter];
-        InfoClass[] info = new InfoClass[counter];
+  /* Основные объекты для работы и сериализации */
+ Client client = new Client();
+ Device device = new Device();
+ Delivery delivery = new Delivery();
+ Price price = new Price();
+
+    /*         Объекты для проверки с деси */
+//        Client cl1;
+//        Device dev1;
+//        Delivery deliv1;
+//        Price cost1;
 
         System.out.println("\t\t\t\tКомпания << OOO Max Sound >>");
-        System.out.print("Введите 1, чтобы начать запись клиента (0 - чтобы закрыть программу) : ");
-        buttonMenu = scanner.nextInt();
+//        ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(PATH));
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(PATH));
 
-        switch (buttonMenu) {
-            case 1 :
-                for (int i = 0; i < counter; i++) {
-                    cl[i] = new Client();
-                    dev[i] = new Device();
-                    deliv[i] = new Delivery();
-                    cost[i] = new Price();
-                    info[i] = new InfoClass();
-                    cl[i].ClientSet();
-                    dev[i].InfoDevice();
-                    dev[i].InfoDefects();
-                    deliv[i].InfoDelivery();
-                    cost[i].InfoPrice();
-                    System.out.println(cost[i].AllSum());
-                    System.out.println("- - - -");
-                    info[i].Print();
-                    System.out.println("- - - -");
-                }
-                break;
-            case 0 :  System.out.println("Окончание работы программы.");
-                break;
-            default : System.out.println("Введенное вами значение не соответствует 1 или 0! ");
-                break;
-        }
+//        cl1 = (Client) objectInputStream.readObject();
+//        dev1 = (Device) objectInputStream.readObject();
+//        deliv1 = (Delivery) objectInputStream.readObject();
+//        cost1 = (Price) objectInputStream.readObject();
+//
+//        System.out.println(cl1);
+//        System.out.println(dev1);
+//        System.out.println(deliv1);
+//        System.out.println(cost1);
+
+//        client.setClient();
+//        objectOutputStream.writeObject(client);
+//
+        device.InfoDevice();
+        device.InfoDefects();
+        objectOutputStream.writeObject(device);
+
+        delivery.InfoDelivery();
+        objectOutputStream.writeObject(delivery);
+
+        price.InfoPrice();
+        price.AllSum();
+        objectOutputStream.writeObject(price);
+
+
+
+        objectOutputStream.close();
+//        objectInputStream.close();
+
     }
 }
